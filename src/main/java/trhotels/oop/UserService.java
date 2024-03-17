@@ -3,16 +3,35 @@ package trhotels.oop;
 import java.util.List;
 import java.util.Optional;
 
-public class UserService {
+public class UserService implements IUserManager {
     private List<User> users;
 
     public UserService(List<User> users) {
         this.users = users;
     }
 
-    public User addUser(User newUser) {
+    @Override
+    public void registerUser(String username, String email, String password, String phoneNumber, Location location) {
+        User newUser = new User(username, email, password, phoneNumber, location);
         users.add(newUser);
-        return newUser;
+        System.out.println("User registered: " + newUser.getUsername());
+    }
+
+    @Override
+    public User authenticateUser(String email, String password) {
+        Optional<User> user = users.stream()
+            .filter(u -> {
+                boolean matches = u.getEmail().equals(email) && u.verifyPassword(password);
+                System.out.println("Matching " + u.getEmail() + ": " + matches);
+                return matches;
+            })
+            .findFirst();
+        return user.orElse(null);
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        return users.remove(user);
     }
 
     public Optional<User> getUserbyEmail(String email) {
@@ -21,7 +40,4 @@ public class UserService {
             .findFirst();
     }
 
-    public boolean deleteUser(User user) {
-        return users.remove(user);
-    }
 }

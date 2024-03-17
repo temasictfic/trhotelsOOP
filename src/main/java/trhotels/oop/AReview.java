@@ -2,14 +2,14 @@ package trhotels.oop;
 
 import java.util.Date;
 
-public class Review {
+public abstract class AReview {
     private User user;
     private Hotel hotel;
     private int rating;
     private String comment;
     private Date date;
 
-    public Review(User user, Hotel hotel, int rating, String comment) {
+    public AReview(User user, Hotel hotel, int rating, String comment) {
         this.user = user;
         this.hotel = hotel;
         this.rating = rating;

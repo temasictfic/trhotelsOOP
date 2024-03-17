@@ -8,16 +8,16 @@ import java.util.List;
 public class User {
 
     private String username;
-    private String password;
     private String email;
+    private String password;
     private String phoneNumber;
     private Location location;
     private List<Payment> payments = new ArrayList<>();
 
-    public User(String username, String password, String email, String phoneNumber, Location location) {
+    public User(String username, String email, String password, String phoneNumber, Location location) {
         this.username = username;
-        this.password = hashPassword(password);
         this.email = email;
+        this.password = hashPassword(password);
         this.phoneNumber = phoneNumber;
         this.location = location;
     }
@@ -49,6 +49,10 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUserPassword() {
+        return password;
     }
 
     public String getPhoneNumber() {
